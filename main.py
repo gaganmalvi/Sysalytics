@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 Python script for Sysalytics.
 This script pulls the following statistics.
@@ -29,8 +30,6 @@ default_app = firebase_admin.initialize_app(
 dbRef = db.reference('/')
 
 # Read all data, write to JSON
-print("[*] Reading data...")
-
 data = {
     "battery": {
         "status": nodes.BATTERY_STATUS,
@@ -47,5 +46,4 @@ data = {
 }
 
 # Write to JSON
-print("[*] Writing data to Firestore...")
 dbRef.set(data)
