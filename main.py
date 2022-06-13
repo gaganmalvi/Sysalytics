@@ -66,6 +66,13 @@ async def getCurrentUptime():
     """
     return {"uptime": misc_utils.calculate_uptime(sysfs_utils.NODE_UPTIME)}
 
+@app.get("/getKernelString")
+async def getKernelString():
+    """
+    Get kernel string.
+    """
+    return {"kernel": ioutil.read_node(sysfs_utils.NODE_KERNEL_VERSION)}
+
 @app.post("/setProfile")
 async def setProfile(profile: str):
     """

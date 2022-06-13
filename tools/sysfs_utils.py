@@ -17,6 +17,9 @@ NODE_SWAPPINESS = "/proc/sys/vm/swappiness"
 # Uptime
 NODE_UPTIME = "/proc/uptime"
 
+# Version
+NODE_KERNEL_VERSION = "/proc/sys/kernel/osrelease"
+
 # Battery
 NODE_BATTERY_STATUS = "/sys/class/power_supply/BAT0/status"
 NODE_BATTERY_CAPACITY = "/sys/class/power_supply/BAT0/capacity"
