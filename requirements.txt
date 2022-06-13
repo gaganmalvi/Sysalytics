@@ -1,1 +1,2 @@
 firebase_admin
+fastapi
