@@ -1,8 +1,7 @@
 '''
 Copyright (C) 2022 Gagan Malvi
 
-API for application to change
-- Power Profiles
+API for application to change system parameters
 '''
 
 import uvicorn
