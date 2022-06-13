@@ -11,6 +11,7 @@ This script pulls the following statistics.
 import firebase_admin
 from firebase_admin import db
 import json
+import subprocess
 
 # Write to a node
 def write_to_node(node, value):
@@ -25,6 +26,9 @@ def read_node(node):
 def write_json(data):
     with open('data.json', 'w') as f:
         f.write(json.dumps(data))
+
+# Power Profile (read from powerprofilesctl)
+POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
 # Swappiness
 SWAPPINESS = read_node("/proc/sys/vm/swappiness")
@@ -68,16 +72,16 @@ for i in range(num_cpus):
 # Parse environment variables the easy way
 envVars = []
 with open('.env', 'r') as f:
-    envVars = f.read().splitlines()
+    envVars = f.read().splitlines()#
 
 # Initialize Realtime Database
 databaseURL = envVars[0]
-cred = firebase_admin.credentials.Certificate(envVars[1])
+cred = firebase_admin.credentials.Certificate(envVars[1])#
 
 default_app = firebase_admin.initialize_app(
     cred,
     {"databaseURL": databaseURL}
-)
+)#
 
 # Set db reference to root
 dbRef = db.reference('/')
@@ -95,8 +99,9 @@ data = {
     "cpu_min_freq": CPU_MIN_FREQ,
     "cpu_scal_gov": CPU_CUR_SGOV,
     "cpu_avl_sgov": CPU_AVL_SGOV,
+    "power_profile": POWER_PROFILE,
     "swappiness": SWAPPINESS
 }
-
+print(data)
 # Write to JSON
 dbRef.set(data)
