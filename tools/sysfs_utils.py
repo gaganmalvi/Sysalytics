@@ -14,6 +14,9 @@ POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PI
 SWAPPINESS = ioutil.read_node("/proc/sys/vm/swappiness")
 NODE_SWAPPINESS = "/proc/sys/vm/swappiness"
 
+# Uptime
+NODE_UPTIME = "/proc/uptime"
+
 # Battery
 NODE_BATTERY_STATUS = "/sys/class/power_supply/BAT0/status"
 NODE_BATTERY_CAPACITY = "/sys/class/power_supply/BAT0/capacity"

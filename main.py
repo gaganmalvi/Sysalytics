@@ -59,6 +59,13 @@ async def currentGovernor():
     """
     return {"governor": ioutil.read_node(sysfs_utils.NODE_CPU_CUR_SGOV[0])}
 
+@app.get("/getCurrentUptime")
+async def getCurrentUptime():
+    """
+    Get current uptime.
+    """
+    return {"uptime": misc_utils.calculate_uptime(sysfs_utils.NODE_UPTIME)}
+
 @app.post("/setProfile")
 async def setProfile(profile: str):
     """
