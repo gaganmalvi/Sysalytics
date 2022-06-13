@@ -43,6 +43,22 @@ async def currentSwappiness():
     """
     return {"swappiness": ioutil.read_node(sysfs_utils.NODE_SWAPPINESS)}
 
+@app.get("/currentBatteryStatus")
+async def currentBatteryStatus():
+    """
+    Get current battery status.
+    """
+    return {"status": ioutil.read_node(sysfs_utils.NODE_BATTERY_STATUS),
+            "capacity": ioutil.read_node(sysfs_utils.NODE_BATTERY_CAPACITY),
+            "model": ioutil.read_node(sysfs_utils.NODE_BATTERY_MODEL)}
+
+@app.get("/currentGovernor")
+async def currentGovernor():
+    """
+    Get current governor.
+    """
+    return {"governor": ioutil.read_node(sysfs_utils.NODE_CPU_CUR_SGOV[0])}
+
 @app.post("/setProfile")
 async def setProfile(profile: str):
     """
