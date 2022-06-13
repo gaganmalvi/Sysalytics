@@ -14,6 +14,7 @@ GNU General Public License for more details.
 API for application to change system parameters
 '''
 
+import psutil
 import uvicorn
 import tools.ioutil as ioutil
 import tools.sysfs_utils as sysfs_utils
@@ -81,6 +82,20 @@ async def getKernelString():
     Get kernel string.
     """
     return {"kernel": ioutil.read_node(sysfs_utils.NODE_KERNEL_VERSION)}
+
+@app.get("/totalCpuUsage")
+async def totalCpuUsage():
+    """
+    Get total CPU usage.
+    """
+    return {"usage": psutil.cpu_percent()}
+
+@app.get("/RAMusage")
+async def RAMusage():
+    """
+    Get RAM usage.
+    """
+    return {"usage": psutil.virtual_memory().percent}
 
 @app.post("/setProfile")
 async def setProfile(profile: str):
