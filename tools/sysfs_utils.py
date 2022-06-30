@@ -23,8 +23,8 @@ POWER_PROFILES_EXECUTABLE = '/usr/bin/powerprofilesctl'
 if (os.path.exists(POWER_PROFILES_EXECUTABLE)): POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
 # Swappiness
-SWAPPINESS = ioutil.read_node("/proc/sys/vm/swappiness")
 NODE_SWAPPINESS = "/proc/sys/vm/swappiness"
+SWAPPINESS = ioutil.read_node(NODE_SWAPPINESS)
 
 # Uptime
 NODE_UPTIME = "/proc/uptime"
