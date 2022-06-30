@@ -62,9 +62,12 @@ async def currentBatteryStatus():
     """
     Get current battery status.
     """
-    return {"status": ioutil.read_node(sysfs_utils.NODE_BATTERY_STATUS),
-            "capacity": ioutil.read_node(sysfs_utils.NODE_BATTERY_CAPACITY),
-            "model": ioutil.read_node(sysfs_utils.NODE_BATTERY_MODEL)}
+    if (os.path.exists(sysfs_utils.BATTERY_PATH)):
+        return {"status": ioutil.read_node(sysfs_utils.NODE_BATTERY_STATUS),
+                "capacity": ioutil.read_node(sysfs_utils.NODE_BATTERY_CAPACITY),
+                "model": ioutil.read_node(sysfs_utils.NODE_BATTERY_MODEL)}
+    else:
+        return {"status": "Battery is not supported on this system."}
 
 @app.get("/currentGovernor")
 async def currentGovernor():
