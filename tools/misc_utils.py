@@ -16,11 +16,15 @@ Subject: Miscellaneous utilities
 
 import math
 import subprocess
+import os
 import tools.ioutil as ioutil
 
 # Write power profile
 def write_profile(profile):
-    return subprocess.run(['powerprofilesctl', 'set', profile], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
+    if (os.path.exists("/usr/bin/powerprofilesctl")):
+        return subprocess.run(['powerprofilesctl', 'set', profile], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
+    else:
+        return "Power profiles are not supported on this system."
 
 # Convert seconds to HH:MM:SS
 def convert_seconds_to_time(seconds):

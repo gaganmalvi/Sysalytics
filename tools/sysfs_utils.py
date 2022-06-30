@@ -16,9 +16,10 @@ Utility to read and store data from sysfs nodes
 
 import tools.ioutil as ioutil
 import subprocess
+import os
 
 # Power Profile (read from powerprofilesctl)
-POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
+if (os.path.exists('/usr/bin/powerprofilesctl')): POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
 # Swappiness
 SWAPPINESS = ioutil.read_node("/proc/sys/vm/swappiness")

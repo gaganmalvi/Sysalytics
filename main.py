@@ -16,6 +16,7 @@ API for application to change system parameters
 
 import psutil
 import uvicorn
+import os
 import tools.ioutil as ioutil
 import tools.sysfs_utils as sysfs_utils
 import tools.misc_utils as misc_utils
@@ -44,7 +45,10 @@ async def currentProfile():
     """
     Get current profile.
     """
-    return {"profile": sysfs_utils.POWER_PROFILE}
+    if (os.path.exists("/usr/bin/powerprofilesctl")):
+        return {"profile": sysfs_utils.POWER_PROFILE}
+    else:
+        return {"profile": "Power profiles are not supported on this system."}
 
 @app.get("/currentSwappiness")
 async def currentSwappiness():
