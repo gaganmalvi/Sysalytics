@@ -19,7 +19,8 @@ import subprocess
 import os
 
 # Power Profile (read from powerprofilesctl)
-if (os.path.exists('/usr/bin/powerprofilesctl')): POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
+POWER_PROFILES_EXECUTABLE = '/usr/bin/powerprofilesctl'
+if (os.path.exists(POWER_PROFILES_EXECUTABLE)): POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
 # Swappiness
 SWAPPINESS = ioutil.read_node("/proc/sys/vm/swappiness")

@@ -18,10 +18,11 @@ import math
 import subprocess
 import os
 import tools.ioutil as ioutil
+import tools.sysfs_utils as sysfs_utils
 
 # Write power profile
 def write_profile(profile):
-    if (os.path.exists("/usr/bin/powerprofilesctl")):
+    if (os.path.exists(sysfs_utils.POWER_PROFILES_EXECUTABLE)):
         return subprocess.run(['powerprofilesctl', 'set', profile], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
     else:
         return "Power profiles are not supported on this system."

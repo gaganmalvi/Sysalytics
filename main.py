@@ -45,7 +45,7 @@ async def currentProfile():
     """
     Get current profile.
     """
-    if (os.path.exists("/usr/bin/powerprofilesctl")):
+    if (os.path.exists(sysfs_utils.POWER_PROFILES_EXECUTABLE)):
         return {"profile": sysfs_utils.POWER_PROFILE}
     else:
         return {"profile": "Power profiles are not supported on this system."}
