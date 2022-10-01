@@ -9,3 +9,5 @@ Please check [documentation](docs/DOCUMENTATION.md) for more information.
 For information regarding contributing, please refer to [Contributing.](docs/CONTRIBUTING.md)
 
 This project is licensed under the [GNU GPLv2 License.](docs/LICENSE.md)
+
+This project is only for Linux-based systems.
