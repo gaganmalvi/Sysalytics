@@ -20,7 +20,9 @@ import os
 
 # Power Profile (read from powerprofilesctl)
 POWER_PROFILES_EXECUTABLE = '/usr/bin/powerprofilesctl'
-if (os.path.exists(POWER_PROFILES_EXECUTABLE)): POWER_PROFILE = subprocess.run(['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
+if (os.path.exists(POWER_PROFILES_EXECUTABLE)):
+    POWER_PROFILE = subprocess.run(
+        ['powerprofilesctl', 'get'], stdout=subprocess.PIPE).stdout.decode('utf-8').strip()
 
 # Swappiness
 NODE_SWAPPINESS = "/proc/sys/vm/swappiness"
@@ -31,6 +33,10 @@ NODE_UPTIME = "/proc/uptime"
 
 # Version
 NODE_KERNEL_VERSION = "/proc/sys/kernel/osrelease"
+NODE_FULL_KERNEL_VERSION = "/proc/version"
+
+# Command line
+NODE_CMDLINE = "/proc/cmdline"
 
 # Battery
 BATTERY_PATH = "/sys/class/power_supply/BAT0"
@@ -53,11 +59,16 @@ NODE_CPU_MIN_FREQ = []
 NODE_CPU_AVL_SGOV = []
 NODE_CPU_CUR_SGOV = []
 for i in range(num_cpus):
-    NODE_CPU_CUR_FREQ.append("/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_cur_freq")
-    NODE_CPU_MAX_FREQ.append("/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_max_freq")
-    NODE_CPU_MIN_FREQ.append("/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_min_freq")
-    NODE_CPU_AVL_SGOV.append("/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_available_governors")
-    NODE_CPU_CUR_SGOV.append("/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_governor")
+    NODE_CPU_CUR_FREQ.append(
+        "/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_cur_freq")
+    NODE_CPU_MAX_FREQ.append(
+        "/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_max_freq")
+    NODE_CPU_MIN_FREQ.append(
+        "/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_min_freq")
+    NODE_CPU_AVL_SGOV.append(
+        "/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_available_governors")
+    NODE_CPU_CUR_SGOV.append(
+        "/sys/devices/system/cpu/cpu" + str(i) + "/cpufreq/scaling_governor")
 
 CPU_CUR_FREQ = []
 CPU_MAX_FREQ = []
