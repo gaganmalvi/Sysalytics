@@ -27,11 +27,12 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins = ["*"],
-    allow_credentials = True,
-    allow_methods = ["*"],
-    allow_headers = ["*"],
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 @app.get("/")
 async def root():
@@ -39,6 +40,7 @@ async def root():
     Check if server is up.
     """
     return {"status": "OK"}
+
 
 @app.get("/currentProfile")
 async def currentProfile():
@@ -50,12 +52,14 @@ async def currentProfile():
     else:
         return {"profile": "Power profiles are not supported on this system."}
 
+
 @app.get("/currentSwappiness")
 async def currentSwappiness():
     """
     Get current swappiness.
     """
     return {"swappiness": ioutil.read_node(sysfs_utils.NODE_SWAPPINESS)}
+
 
 @app.get("/currentBatteryStatus")
 async def currentBatteryStatus():
@@ -69,12 +73,14 @@ async def currentBatteryStatus():
     else:
         return {"status": "Battery is not supported on this system."}
 
+
 @app.get("/currentGovernor")
 async def currentGovernor():
     """
     Get current governor.
     """
     return {"governor": ioutil.read_node(sysfs_utils.NODE_CPU_CUR_SGOV[0])}
+
 
 @app.get("/getCurrentUptime")
 async def getCurrentUptime():
@@ -83,12 +89,30 @@ async def getCurrentUptime():
     """
     return {"uptime": misc_utils.calculate_uptime(sysfs_utils.NODE_UPTIME)}
 
+
 @app.get("/getKernelString")
 async def getKernelString():
     """
     Get kernel string.
     """
     return {"kernel": ioutil.read_node(sysfs_utils.NODE_KERNEL_VERSION)}
+
+
+@app.get("/getKernelStringFull")
+async def getKernelString():
+    """
+    Get full kernel string from /proc/version.
+    """
+    return {"kernel": ioutil.read_node(sysfs_utils.NODE_FULL_KERNEL_VERSION)}
+
+
+@app.get("/getCmdline")
+async def getCmdline():
+    """
+    Get full boot command line from /proc/cmdline.
+    """
+    return {"cmdline": ioutil.read_node(sysfs_utils.NODE_CMDLINE)}
+
 
 @app.get("/totalCpuUsage")
 async def totalCpuUsage():
@@ -97,6 +121,7 @@ async def totalCpuUsage():
     """
     return {"usage": psutil.cpu_percent()}
 
+
 @app.get("/RAMusage")
 async def RAMusage():
     """
@@ -104,12 +129,14 @@ async def RAMusage():
     """
     return {"usage": psutil.virtual_memory().percent}
 
+
 @app.post("/setProfile")
 async def setProfile(profile: str):
     """
     Set profile
     """
     misc_utils.write_profile(profile)
+
 
 @app.post("/setSwappiness")
 async def setSwappiness(swappiness: int):
